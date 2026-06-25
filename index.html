@@ -450,6 +450,7 @@
   /* 非會員列 */
   .ptab-row-nonmember { background:#fff; }
   .ptab-row-nonmember .ptab-label-cell { font-size:13px; color:#777; letter-spacing:.5px; }
+  .ptab-scroll-hint { display:none; }
   @media(max-width:768px){
     .ptab-btn-dates { display:none; }
     .ptab-btn-label { font-size:15px; }
@@ -460,12 +461,6 @@
     .ptab-row { grid-template-columns:80px 1fr 1fr 1fr; }
     .ptab-cell { padding:12px 8px; gap:3px; }
     .ptab-label-cell { padding:12px 10px; font-size:12px; }
-    .ptab-day { font-size:15px; }
-    .ptab-price-member { font-size:17px; }
-    .ptab-price-nonmember { font-size:15px; }
-    .ptab-price-original { font-size:13px; }
-    .ptab-saving { font-size:9px; }
-    .ptab-badge { font-size:10px; padding:2px 5px; }
     .ptab-multi-banner { font-size:12px; }
     .ptab-scroll-hint { display:flex; align-items:center; justify-content:center; gap:6px; font-size:11px; letter-spacing:1.5px; color:rgba(245,243,239,.4); margin-bottom:8px; }
     .ptab-scroll-hint svg { opacity:.5; }
@@ -727,7 +722,7 @@
     <div class="course-meta-item">
       <p class="meta-label">幼兒分時</p>
       <p class="meta-value">3 – 7 歲</p>
-      <p class="meta-note">未滿 7 歲幼兒可分時段一對一授課，另一時段換大人上課，需於課程備註說明</p>
+      <p class="meta-note"><a href="#notes" style="color:rgba(0,53,142,.7);text-decoration:none;border-bottom:1px solid rgba(0,53,142,.3);">詳見注意事項 ↓</a></p>
     </div>
   </div>
 
@@ -754,7 +749,7 @@
       <span class="time-tick">13:00</span>
       <span class="time-tick">15:30</span>
     </div>
-    <p class="time-note">上課時間可依學生需求調整開始時間，惟課程最晚須於 16:30 前結束（含休息時間）。每次上課皆為全天課程，無法拆分為半天。</p>
+    <p class="time-note"><a href="#notes" style="color:rgba(0,53,142,.7);text-decoration:none;border-bottom:1px solid rgba(0,53,142,.3);">詳見注意事項 ↓</a></p>
   </div>
 </section>
 </div>
