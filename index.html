@@ -271,11 +271,12 @@
   /* ── SEASON SUMMARY ── */
   .calendar-section { padding:100px 60px; max-width:1200px; margin:0 auto; }
   section#calendar { background:var(--ink-light); }
-  .season-stack-wrap { position:relative; margin-top:56px; height:380px; }
+  .season-stack-wrap { position:relative; margin-top:56px; height:420px; }
   .season-card {
     position:absolute; top:0; left:0;
     width:68%; border-radius:4px;
     padding:40px 48px;
+    height:360px;
     cursor:pointer;
     transition:transform .4s cubic-bezier(.25,.46,.45,.94), opacity .4s, box-shadow .4s;
     user-select:none;
@@ -298,8 +299,8 @@
   .season-nav-btn:hover { background:rgba(200,218,234,.15); border-color:#c8daea; color:#c8daea; }
   @media(max-width:768px){
     .calendar-section { padding:64px 24px; }
-    .season-stack-wrap { height:340px; }
-    .season-card { width:80%; padding:28px 28px; }
+    .season-stack-wrap { height:360px; }
+    .season-card { width:80%; padding:28px 28px; height:310px; }
     .season-card-title { font-size:36px; }
     .season-card[data-pos="1"] { transform:translateX(18%) scale(0.93); }
     .season-card[data-pos="2"] { transform:translateX(32%) scale(0.87); }
@@ -532,7 +533,7 @@
 
 <!-- COUNTDOWN BAR -->
 <div class="countdown-bar" id="countdownBar">
-  <span>頭香優惠</span>
+  <span>超早鳥優惠</span>
   <div class="countdown-bar-nums">
     <span class="countdown-bar-num" id="cbDays">--</span><span class="countdown-bar-label">天</span>
     <span class="countdown-bar-sep">:</span>
@@ -1244,7 +1245,7 @@ function toggleMobileMenu() {
 
 // Countdown bar
 (function() {
-  const deadline = new Date('2026-07-12T23:59:59+08:00');
+  const deadline = new Date('2026-08-23T23:59:59+08:00');
   function tick() {
     const now = new Date();
     const diff = deadline - now;
