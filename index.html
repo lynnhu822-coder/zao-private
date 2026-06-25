@@ -396,10 +396,17 @@
     border-radius:4px;
     box-shadow:0 4px 32px rgba(0,0,0,.18), 0 1px 6px rgba(0,0,0,.1);
     overflow:hidden;
-    animation:ptabDomino .7s cubic-bezier(.25,.46,.45,.94) forwards;
+    opacity:0;
+    transform:rotateY(-90deg);
+    transform-origin:left center;
   }
   .ptab-card.is-visible {
     animation:ptabDomino .7s cubic-bezier(.25,.46,.45,.94) forwards;
+  }
+  /* fallback：若動畫沒觸發，確保內容可見 */
+  .ptab-card.is-fallback {
+    opacity:1;
+    transform:none;
   }
   /* Tab 按鈕（卡片外，維持深色系） */
   .ptab-nav { display:flex; gap:3px; margin-bottom:12px; }
@@ -1250,14 +1257,24 @@ function switchTab(id, btn) {
 (function() {
   var card = document.getElementById('ptab-card');
   if (!card) return;
-  function showCard() { card.classList.add('is-visible'); }
+  function showCard() {
+    if (card.classList.contains('is-visible') || card.classList.contains('is-fallback')) return;
+    card.classList.add('is-visible');
+  }
+  function showFallback() {
+    if (!card.classList.contains('is-visible')) {
+      card.classList.add('is-fallback');
+    }
+  }
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) { showCard(); observer.unobserve(card); }
     });
   }, { threshold: 0 });
   observer.observe(card);
-  // fallback：若已在 viewport 內直接觸發
+  // fallback：3秒後若還沒觸發動畫，直接顯示內容
+  setTimeout(showFallback, 3000);
+  // 立即檢查是否已在 viewport
   var rect = card.getBoundingClientRect();
   if (rect.top < window.innerHeight && rect.bottom > 0) { showCard(); }
 })();
