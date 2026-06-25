@@ -1257,26 +1257,28 @@ function switchTab(id, btn) {
 (function() {
   var card = document.getElementById('ptab-card');
   if (!card) return;
+  var cardShown = false;
   function showCard() {
-    if (card.classList.contains('is-visible') || card.classList.contains('is-fallback')) return;
+    if (cardShown) return;
+    cardShown = true;
     card.classList.add('is-visible');
   }
   function showFallback() {
-    if (!card.classList.contains('is-visible')) {
+    if (!cardShown) {
+      cardShown = true;
       card.classList.add('is-fallback');
     }
   }
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) { showCard(); observer.unobserve(card); }
-    });
-  }, { threshold: 0 });
-  observer.observe(card);
-  // fallback：3秒後若還沒觸發動畫，直接顯示內容
-  setTimeout(showFallback, 3000);
-  // 立即檢查是否已在 viewport
-  var rect = card.getBoundingClientRect();
-  if (rect.top < window.innerHeight && rect.bottom > 0) { showCard(); }
+  function checkCard() {
+    var rect = card.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) {
+      showCard();
+      window.removeEventListener('scroll', checkCard);
+    }
+  }
+  window.addEventListener('scroll', checkCard, { passive: true });
+  checkCard();
+  setTimeout(showFallback, 10000);
 })();
 
 // Mobile menu
