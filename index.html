@@ -137,8 +137,9 @@
   .suit-card:nth-child(3)::before { background:radial-gradient(ellipse at 100% 100%, rgba(200,218,234,.1) 0%, transparent 70%); }
   .suit-card:hover { border-color:rgba(245,243,239,.3); }
   .suit-card:hover::before { opacity:1; }
-  .suit-card-num { font-family:'Bebas Neue',sans-serif; font-size:56px; line-height:1; color:rgba(245,243,239,.07); margin-bottom:24px; position:relative; z-index:1; }
-  .suit-icon { font-size:28px; margin-bottom:20px; position:relative; z-index:1; }
+  .suit-card-num { display:none; }
+  .suit-icon { width:80px; height:80px; border-radius:50%; margin-bottom:20px; position:relative; z-index:1; display:inline-flex; align-items:center; justify-content:center; }
+  .suit-icon img { width:44px; height:44px; object-fit:contain; }
   .suit-card-title { font-family:'Shippori Mincho',serif; font-size:20px; font-weight:700; color:var(--snow); margin-bottom:14px; letter-spacing:1.5px; position:relative; z-index:1; }
   .suit-card-desc { font-size:16px; color:rgba(245,243,239,.68); line-height:2; letter-spacing:.4px; position:relative; z-index:1; }
   .suit-card-accent { display:block; width:28px; height:2px; background:var(--yellow); margin-bottom:20px; position:relative; z-index:1; transition:width .4s; }
@@ -151,7 +152,7 @@
   .course-section .section-eyebrow::before { background:rgba(0,53,142,.35); }
   .course-section .section-heading { color:var(--ink); }
   .course-section .section-heading-jp { color:rgba(44,53,64,.4); }
-  .course-meta-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; margin-bottom:2px; }
+  .course-meta-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:2px; }
   .course-meta-item { background:#f7f8fa; border:1px solid rgba(0,53,142,.1); padding:28px 32px; }
   .meta-label { font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--charcoal); margin-bottom:8px; opacity:.7; }
   .meta-value { font-family:'Shippori Mincho',serif; font-size:18px; font-weight:700; color:var(--ink); letter-spacing:1px; line-height:1.6; }
@@ -453,10 +454,12 @@
     .ptab-btn-dates { display:none; }
     .ptab-btn-label { font-size:15px; }
     .ptab-btn { padding:12px 8px; }
-    .ptab-head { grid-template-columns:72px 1fr 1fr 1fr; }
-    .ptab-row { grid-template-columns:72px 1fr 1fr 1fr; }
-    .ptab-cell { padding:12px 6px; gap:3px; }
-    .ptab-label-cell { padding:12px 8px; font-size:12px; }
+    .ptab-card { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .ptab-table { min-width:420px; }
+    .ptab-head { grid-template-columns:80px 1fr 1fr 1fr; }
+    .ptab-row { grid-template-columns:80px 1fr 1fr 1fr; }
+    .ptab-cell { padding:12px 8px; gap:3px; }
+    .ptab-label-cell { padding:12px 10px; font-size:12px; }
     .ptab-day { font-size:15px; }
     .ptab-price-member { font-size:17px; }
     .ptab-price-nonmember { font-size:15px; }
@@ -464,6 +467,8 @@
     .ptab-saving { font-size:9px; }
     .ptab-badge { font-size:10px; padding:2px 5px; }
     .ptab-multi-banner { font-size:12px; }
+    .ptab-scroll-hint { display:flex; align-items:center; justify-content:center; gap:6px; font-size:11px; letter-spacing:1.5px; color:rgba(245,243,239,.4); margin-bottom:8px; }
+    .ptab-scroll-hint svg { opacity:.5; }
   }
 
   @media(max-width:768px){
@@ -494,7 +499,7 @@
 
     /* Course section */
     .course-section { padding:64px 24px; }
-    .course-meta-grid { grid-template-columns:1fr; }
+    .course-meta-grid { grid-template-columns:1fr 1fr; }
     .meta-note { font-size:14px; line-height:2.1; }
 
     /* Time visual */
@@ -674,22 +679,19 @@
     <div class="suit-grid">
       <div class="suit-card reveal reveal-delay-1">
         <span class="suit-card-accent"></span>
-        <div class="suit-card-num">01</div>
-        <div class="suit-icon">🎿</div>
+        <div class="suit-icon" style="background:rgba(0,53,142,.55);"><img src="https://www.iski.com.tw/image/catalog/%E6%97%A5%E6%9C%AC%E9%9B%AA%E5%A0%B4/landing%20page%202026/icon.snowboarder.png?_t=1782360909" alt="單人包班" style="filter:invert(1);"></div>
         <h3 class="suit-card-title">單人包班</h3>
         <p class="suit-card-desc">不想和陌生學員一同上課，或想要更有效率的學習，專屬教練一對一指導，讓你進步神速。</p>
       </div>
       <div class="suit-card reveal reveal-delay-2">
         <span class="suit-card-accent"></span>
-        <div class="suit-card-num">02</div>
-        <div class="suit-icon">👫</div>
+        <div class="suit-icon" style="background:rgba(212,245,60,.85);"><img src="https://www.iski.com.tw/image/catalog/%E6%97%A5%E6%9C%AC%E9%9B%AA%E5%A0%B4/landing%20page%202026/icon.bff.png?_t=1782360909" alt="閨蜜好友"></div>
         <h3 class="suit-card-title">閨蜜好友不打擾</h3>
         <p class="suit-card-desc">想要只屬於三五好友、情侶、閨蜜的時光，私人課給你最專屬難忘的滑雪回憶。</p>
       </div>
       <div class="suit-card reveal reveal-delay-3">
         <span class="suit-card-accent"></span>
-        <div class="suit-card-num">03</div>
-        <div class="suit-icon">👨‍👩‍👧</div>
+        <div class="suit-icon" style="background:rgba(200,218,234,.2);"><img src="https://www.iski.com.tw/image/catalog/%E6%97%A5%E6%9C%AC%E9%9B%AA%E5%A0%B4/landing%20page%202026/icon.family.png?_t=1782360909" alt="家庭滑雪" style="filter:invert(1);"></div>
         <h3 class="suit-card-title">家庭滑雪</h3>
         <p class="suit-card-desc">想跟家人一起滑雪，讓親子間有更好的學習互動，貼心的教練讓你不只學會滑雪，還有滿滿的家庭回憶。</p>
       </div>
@@ -715,22 +717,13 @@
     <div class="course-meta-item">
       <p class="meta-label">上課人數</p>
       <p class="meta-value"><span class="accent-yellow">1 – 5</span> 人</p>
-      <p class="meta-note">建議程度相近一起報名，超過 3 人每多 1 位加收 NT$2,000</p>
+      <p class="meta-note">建議程度相近一起報名</p>
     </div>
     <div class="course-meta-item">
       <p class="meta-label">課程期間</p>
-      <p class="meta-value" style="font-size:15px;">2026年12月21日 ～ 2027年3月19日</p>
+      <p class="meta-value" style="font-size:15px;">2026/12/21 ～ 2027/03/19</p>
     </div>
-    <div class="course-meta-item">
-      <p class="meta-label">上課地點</p>
-      <p class="meta-value">藏王溫泉スキー場<br><span style="font-size:14px;color:rgba(245,243,239,.55);">山形縣</span></p>
-      <p class="meta-note"></p>
-    </div>
-    <div class="course-meta-item">
-      <p class="meta-label">課程時數</p>
-      <p class="meta-value"><span class="accent-yellow">5 小時</span>教學</p>
-      <p class="meta-note">含中間休息 1 小時，全天共 6 小時</p>
-    </div>
+
     <div class="course-meta-item">
       <p class="meta-label">幼兒分時</p>
       <p class="meta-value">3 – 7 歲</p>
@@ -740,7 +733,7 @@
 
   <!-- TIME VISUAL -->
   <div class="time-visual reveal" style="margin-top:2px;">
-    <p class="time-visual-label">上課時間結構</p>
+    <p class="time-visual-label">課程時數 · 5小時教學</p>
     <div class="time-bar-wrap">
       <div class="time-seg time-seg-teaching">
         <span class="time-seg-label">教學</span>
@@ -777,14 +770,15 @@
 
     <!-- Price Table -->
     <div class="ptab-wrap" style="margin-top:56px;">
+      <div class="ptab-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>左右滑動查看<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
       <div class="ptab-nav">
-        <button class="ptab-btn active" onclick="switchTab('peak',this)">
-          <span class="ptab-btn-label">旺季</span>
-          <span class="ptab-btn-dates">12/25–1/3 · 1/18–2/27</span>
-        </button>
-        <button class="ptab-btn" onclick="switchTab('standard',this)">
+        <button class="ptab-btn active" onclick="switchTab('standard',this)">
           <span class="ptab-btn-label">標準季</span>
           <span class="ptab-btn-dates">1/4–1/17 · 2/28–3/5</span>
+        </button>
+        <button class="ptab-btn" onclick="switchTab('peak',this)">
+          <span class="ptab-btn-label">旺季</span>
+          <span class="ptab-btn-dates">12/25–1/3 · 1/18–2/27</span>
         </button>
         <button class="ptab-btn" onclick="switchTab('off',this)">
           <span class="ptab-btn-label">淡季</span>
@@ -792,7 +786,7 @@
         </button>
       </div>
       <div class="ptab-card" id="ptab-card">
-      <div class="ptab-content active" id="ptab-peak">
+      <div class="ptab-content" id="ptab-peak">
         <div class="ptab-multi-banner">購買 2 日 <strong>95折</strong>，3 日再 <strong>9折</strong></div>
         <div class="ptab-table">
           <div class="ptab-head">
@@ -821,7 +815,7 @@
           </div>
         </div>
       </div>
-      <div class="ptab-content" id="ptab-standard">
+      <div class="ptab-content active" id="ptab-standard">
         <div class="ptab-multi-banner">購買 2 日 <strong>95折</strong>，3 日再 <strong>9折</strong></div>
         <div class="ptab-table">
           <div class="ptab-head">
@@ -997,8 +991,8 @@
           <p class="calc-group-label">淡旺季</p>
           <div class="calc-options" id="ctrlSeason">
             <button class="calc-btn active" data-season="1" data-season-label="standard">標準季</button>
-            <button class="calc-btn" data-season="0.85" data-season-label="off">淡季</button>
             <button class="calc-btn" data-season="1.2" data-season-label="peak">旺季</button>
+            <button class="calc-btn" data-season="0.85" data-season-label="off">淡季</button>
           </div>
         </div>
 
