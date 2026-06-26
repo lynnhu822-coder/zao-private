@@ -191,13 +191,13 @@
 
   /* ── PRICE TAB ── */
   @keyframes ptabDomino {
-    from { opacity:0; transform:rotateX(-18deg) translateY(24px); }
-    to   { opacity:1; transform:rotateX(0deg)  translateY(0); }
+    from { opacity:0; transform:perspective(1200px) rotateX(-18deg) translateY(24px); }
+    to   { opacity:1; transform:perspective(1200px) rotateX(0deg)  translateY(0); }
   }
-  .ptab-wrap { width:100%; perspective:1200px; }
+  .ptab-wrap { width:100%; }
   .ptab-card {
     opacity:0;
-    transform:rotateX(-18deg) translateY(24px);
+    transform:perspective(1200px) rotateX(-18deg) translateY(24px);
     transform-origin:top center;
   }
   .ptab-card.is-visible {
@@ -1482,15 +1482,29 @@ function switchTab(id, btn) {
 (function() {
   var card = document.getElementById('ptab-card');
   if (!card) return;
+  var isMobile = window.innerWidth <= 768;
   var cardShown = false;
-  function showCard() { if (cardShown) return; cardShown = true; card.classList.add('is-visible'); }
+  function showCard() {
+    if (cardShown) return; cardShown = true;
+    card.classList.add(isMobile ? 'is-fallback' : 'is-visible');
+  }
   function checkCard() {
     var rect = card.getBoundingClientRect();
     if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) { showCard(); window.removeEventListener('scroll', checkCard); }
   }
   window.addEventListener('scroll', checkCard, { passive: true });
-  checkCard();
-  setTimeout(function() { if (!cardShown) { cardShown = true; card.classList.add('is-fallback'); } }, 2000);
+  // 延遲到 DOMContentLoaded 後再做初始判斷，確保 layout 已完成
+  // 若頁面載入時 card 已在 viewport，給予 fallback
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      var rect = card.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) {
+        // 已在 viewport，直接 fallback，不跑動畫
+        if (!cardShown) { cardShown = true; card.classList.add('is-fallback'); }
+      }
+    }, 100);
+  });
+  setTimeout(function() { if (!cardShown) { cardShown = true; card.classList.add('is-fallback'); } }, 3000);
 })();
 
 calcPrice();
