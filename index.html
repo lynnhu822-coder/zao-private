@@ -191,14 +191,14 @@
 
   /* ── PRICE TAB ── */
   @keyframes ptabDomino {
-    from { opacity:0; transform:perspective(1200px) rotateX(-18deg) translateY(24px); }
-    to   { opacity:1; transform:perspective(1200px) rotateX(0deg)  translateY(0); }
+    from { opacity:0; transform:perspective(1200px) rotateY(-18deg) translateX(-24px); }
+    to   { opacity:1; transform:perspective(1200px) rotateY(0deg)  translateX(0); }
   }
   .ptab-wrap { width:100%; }
   .ptab-card {
     opacity:0;
-    transform:perspective(1200px) rotateX(-18deg) translateY(24px);
-    transform-origin:top center;
+    transform:perspective(1200px) rotateY(-18deg) translateX(-24px);
+    transform-origin:left center;
   }
   .ptab-card.is-visible {
     animation:ptabDomino .7s cubic-bezier(.25,.46,.45,.94) forwards;
@@ -696,7 +696,7 @@
     </div>
     <div class="course-meta-item">
       <p class="meta-label">課程期間</p>
-      <p class="meta-value" style="font-size:15px;">2026/12/21 ～ 2027/03/19</p>
+      <p class="meta-value">2026/12/21 ～ 2027/03/19</p>
     </div>
     <div class="course-meta-item">
       <p class="meta-label">幼兒分時</p>
@@ -1479,33 +1479,25 @@ function switchTab(id, btn) {
 }
 
 // Price card slide-in on scroll
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   var card = document.getElementById('ptab-card');
   if (!card) return;
   var isMobile = window.innerWidth <= 768;
-  var cardShown = false;
-  function showCard() {
-    if (cardShown) return; cardShown = true;
-    card.classList.add(isMobile ? 'is-fallback' : 'is-visible');
-  }
-  function checkCard() {
-    var rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) { showCard(); window.removeEventListener('scroll', checkCard); }
-  }
-  window.addEventListener('scroll', checkCard, { passive: true });
-  // 延遲到 DOMContentLoaded 後再做初始判斷，確保 layout 已完成
-  // 若頁面載入時 card 已在 viewport，給予 fallback
-  window.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      var rect = card.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) {
-        // 已在 viewport，直接 fallback，不跑動畫
-        if (!cardShown) { cardShown = true; card.classList.add('is-fallback'); }
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        card.classList.add(isMobile ? 'is-fallback' : 'is-visible');
+        io.disconnect();
       }
-    }, 100);
-  });
-  setTimeout(function() { if (!cardShown) { cardShown = true; card.classList.add('is-fallback'); } }, 3000);
-})();
+    });
+  }, { threshold: 0.1 });
+  io.observe(card);
+  setTimeout(function() {
+    if (!card.classList.contains('is-visible') && !card.classList.contains('is-fallback')) {
+      card.classList.add('is-fallback');
+    }
+  }, 3000);
+});
 
 calcPrice();
 
