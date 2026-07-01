@@ -301,9 +301,11 @@
   .season-chip.standard { background:#eef6fb; border:1px solid #c8daea; color:var(--ink); }
   .season-chip.peak     { background:rgba(231,76,60,.08); border:1px solid rgba(231,76,60,.3); color:#c0392b; }
   .season-chip.off      { background:rgba(46,204,113,.08); border:1px solid rgba(46,204,113,.3); color:#27ae60; }
-  .season-nav { display:flex; gap:3px; margin-top:16px; justify-content:flex-end; }
-  .season-nav-btn { display:flex; align-items:center; gap:8px; padding:12px 24px; background:rgba(245,243,239,.06); border:1px solid rgba(245,243,239,.15); color:rgba(245,243,239,.6); font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:2px; cursor:pointer; transition:all .2s; border-radius:2px; }
-  .season-nav-btn:hover { background:rgba(200,218,234,.15); border-color:#c8daea; color:#c8daea; }
+  @media(max-width:768px){
+    .season-nav { display:flex; gap:3px; margin-top:16px; justify-content:flex-end; }
+    .season-nav-btn { display:flex; align-items:center; gap:8px; padding:12px 24px; background:rgba(245,243,239,.06); border:1px solid rgba(245,243,239,.15); color:rgba(245,243,239,.6); font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:2px; cursor:pointer; transition:all .2s; border-radius:2px; }
+    .season-nav-btn:hover { background:rgba(200,218,234,.15); border-color:#c8daea; color:#c8daea; }
+  }
   @media(max-width:768px){
     .calendar-section { padding:64px 24px; }
     .season-stack-wrap { height:360px; }
